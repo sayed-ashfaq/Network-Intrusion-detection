@@ -12,5 +12,5 @@ def load_dataset(path: str) -> pd.DataFrame:
     return df
 
 if __name__ == "__main__":
-    df = load_dataset("data/phising.csv")
+    df = load_dataset("../data/phising.csv")
     print(df.head())
