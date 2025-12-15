@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
-    <option name="sdkName" value="Python 3.12 (phising-website-detection)" />
+    <option name="sdkName" value="Python 3.13 (phising-website-detection)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (phising-website-detection)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (phising-website-detection)" project-jdk-type="Python SDK" />
 </project>
