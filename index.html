@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard AI - Phishing Website Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .tech-stack-container {
+            background: #f8f9fa;
+            padding: 40px;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .tech-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
+        }
+        
+        .tech-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .tech-card p {
+            font-size: 0.9em;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .tech-items {
+            margin-top: 8px;
+            font-size: 0.85em;
+        }
+        
+        .tech-items span {
+            display: inline-block;
+            background: #e8edf7;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin: 3px;
+            font-weight: 500;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .metric-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-card .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .definition-box {
+            background: #e8edf7;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .definition-box strong {
+            color: #667eea;
+        }
+        
+        .flow-diagram {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-family: monospace;
+            line-height: 1.8;
+            text-align: center;
+        }
+        
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🛡️ PhishGuard AI</h1>
+            <p>Intelligent Phishing Website Detection System</p>
+        </header>
+        
+        <!-- Tech Stack Section -->
+        <div class="tech-stack-container">
+            <div class="tech-card">
+                <h4>🔧 Core ML</h4>
+                <div class="tech-items">
+                    <span>XGBoost</span>
+                    <span>Scikit-learn</span>
+                    <span>ANN/MLP</span>
+                </div>
+            </div>
+            <div class="tech-card">
+                <h4>📊 Data Processing</h4>
+                <div class="tech-items">
+                    <span>Pandas</span>
+                    <span>NumPy</span>
+                    <span>SciPy</span>
+                </div>
+            </div>
+            <div class="tech-card">
+                <h4>🌐 Web & API</h4>
+                <div class="tech-items">
+                    <span>FastAPI</span>
+                    <span>Uvicorn</span>
+                    <span>Jinja2</span>
+                </div>
+            </div>
+            <div class="tech-card">
+                <h4>🔍 Feature Extraction</h4>
+                <div class="tech-items">
+                    <span>BeautifulSoup4</span>
+                    <span>DNSPython</span>
+                    <span>WHOIS</span>
+                </div>
+            </div>
+            <div class="tech-card">
+                <h4>📈 Monitoring</h4>
+                <div class="tech-items">
+                    <span>MLflow</span>
+                    <span>Matplotlib</span>
+                    <span>Seaborn</span>
+                </div>
+            </div>
+            <div class="tech-card">
+                <h4>⚙️ DevOps</h4>
+                <div class="tech-items">
+                    <span>YAML Config</span>
+                    <span>Joblib</span>
+                    <span>Python 3.x</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Problem Statement -->
+            <h2>📋 Problem Statement</h2>
+            <p>
+                Phishing attacks remain one of the most prevalent cybersecurity threats, targeting individuals and organizations 
+                through deceptive websites designed to steal sensitive information. Traditional rule-based detection methods often 
+                fail against sophisticated phishing attempts.
+            </p>
+            <p>
+                <strong>Solution:</strong> This project implements an intelligent machine learning-based system that analyzes 
+                website characteristics and features to classify URLs as legitimate or phishing with high accuracy using ensemble 
+                and deep learning approaches.
+            </p>
+            
+            <!-- Project Overview -->
+            <h2>🎯 Project Overview</h2>
+            <p>
+                PhishGuard AI is an end-to-end machine learning pipeline that combines feature extraction, data preprocessing, 
+                and dual model architectures (XGBoost + Artificial Neural Networks) to detect phishing websites with enterprise-grade 
+                reliability. The system includes a REST API with an interactive web interface for real-time predictions.
+            </p>
+            
+            <!-- Data & Features -->
+            <h2>📊 Data & Features</h2>
+            <h3>Dataset Information</h3>
+            <ul>
+                <li><strong>Source:</strong> Phishing dataset with labeled legitimate and phishing websites</li>
+                <li><strong>Features:</strong> 30 engineered features covering URL, domain, SSL, and page-based indicators</li>
+                <li><strong>Train-Test Split:</strong> 80-20 with random seed (42) for reproducibility</li>
+            </ul>
+            
+            <h3>Feature Categories</h3>
+            <div class="definition-box">
+                <strong>URL-Level Features:</strong> IP address presence, URL length, URL shortening services, 
+                special characters (@, //), domain prefixes/suffixes
+            </div>
+            <div class="definition-box">
+                <strong>Security Features:</strong> SSL certificate state, HTTPS token presence, domain registration length
+            </div>
+            <div class="definition-box">
+                <strong>Content Features:</strong> Page rank, favicon, DNS records, web traffic, links structure, 
+                embedded content analysis
+            </div>
+            
+            <!-- Project Flow -->
+            <h2>🔄 Project Flow</h2>
+            <div class="flow-diagram">
+Raw Dataset (Phishing CSV)
+    ↓
+Data Loading & Exploration
+    ↓
+Data Preprocessing (Handle missing values, encoding)
+    ↓
+Feature Scaling (StandardScaler)
+    ↓
+Train-Test Split (80-20)
+    ↓
+┌─────────────────────────────────────┐
+├─→ XGBoost Model Training          ├─→ Model Evaluation & Metrics
+├─→ ANN (MLPClassifier) Training    ├─→ Cross-validation
+└─────────────────────────────────────┘
+    ↓
+Model Serialization & Artifact Storage
+    ↓
+REST API Deployment (FastAPI)
+    ↓
+Real-time Prediction Interface
+            </div>
+            
+            <!-- How It Works -->
+            <h2>⚙️ How It Works</h2>
+            <h3>1. Feature Extraction</h3>
+            <p>
+                The system extracts 30 features from each URL by analyzing:
+            </p>
+            <ul>
+                <li>URL structure and composition</li>
+                <li>Domain registration details via WHOIS lookups</li>
+                <li>SSL certificate validity and state</li>
+                <li>DNS records and reputation</li>
+                <li>HTML content and page structure</li>
+            </ul>
+            
+            <h3>2. Data Preprocessing</h3>
+            <p>
+                Features are standardized using StandardScaler to normalize values between -1, 0, and 1, 
+                ensuring all features contribute equally to model training.
+            </p>
+            
+            <h3>3. Dual Model Architecture</h3>
+            <p>
+                The system trains two complementary models:
+            </p>
+            
+            <div class="definition-box">
+                <strong>XGBoost (Extreme Gradient Boosting):</strong> An ensemble method that builds a forest 
+                of decision trees sequentially, with each tree correcting errors from previous ones. 
+                Optimized for binary classification with regularization to prevent overfitting.
+                <br><br>
+                <strong>Configuration:</strong> 400 estimators, max_depth=7, learning_rate=0.04, 
+                strong regularization (alpha=0.3, lambda=1.0)
+            </div>
+            
+            <div class="definition-box">
+                <strong>ANN/MLP (Artificial Neural Network - Multi-Layer Perceptron):</strong> A feedforward 
+                neural network with multiple hidden layers that learns non-linear relationships in the data 
+                through backpropagation. Uses ReLU activation for hidden layers and Adam optimizer.
+                <br><br>
+                <strong>Architecture:</strong> Input → 128 neurons → 64 neurons → 32 neurons → Output(Binary)
+                <br>
+                <strong>Features:</strong> Early stopping, validation split 0.1, batch size 64, max iterations 400
+            </div>
+            
+            <h3>4. Model Evaluation & Selection</h3>
+            <p>
+                Both models are evaluated on the test set using:
+            </p>
+            <ul>
+                <li><strong>Accuracy:</strong> Overall correctness of predictions</li>
+                <li><strong>Precision:</strong> Of detected phishing sites, how many are true positives</li>
+                <li><strong>Recall:</strong> Of actual phishing sites, how many are detected</li>
+                <li><strong>F1-Score:</strong> Harmonic mean balancing precision and recall</li>
+            </ul>
+            
+            <!-- Performance Metrics -->
+            <h2>📈 Performance Metrics</h2>
+            <p>
+                Both models are trained with hyperparameter optimization and evaluated using robust metrics. 
+                Models are logged using MLflow for experiment tracking and reproducibility.
+            </p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="value">Dual Models</div>
+                    <div class="label">XGBoost + ANN</div>
+                </div>
+                <div class="metric-card">
+                    <div class="value">30 Features</div>
+                    <div class="label">Engineered</div>
+                </div>
+                <div class="metric-card">
+                    <div class="value">80-20</div>
+                    <div class="label">Train-Test Split</div>
+                </div>
+                <div class="metric-card">
+                    <div class="value">MLflow</div>
+                    <div class="label">Experiment Tracking</div>
+                </div>
+            </div>
+            
+            <h3>Model Hyperparameters</h3>
+            <div class="code-block">
+XGBoost Configuration:
+  - Estimators: 400
+  - Max Depth: 7
+  - Learning Rate: 0.04
+  - Subsample: 0.9
+  - Colsample Bytree: 0.9
+  - Gamma: 0.2
+  - Regularization (L1/L2): 0.3/1.0
+
+ANN/MLP Configuration:
+  - Hidden Layers: [128, 64, 32]
+  - Activation: ReLU
+  - Solver: Adam
+  - Learning Rate: 0.001
+  - Batch Size: 64
+  - Max Iterations: 400
+  - Early Stopping: Enabled
+            </div>
+            
+            <!-- Definitions -->
+            <h2>📚 Essential Definitions</h2>
+            
+            <h3>Machine Learning Concepts</h3>
+            <div class="definition-box">
+                <strong>Supervised Learning:</strong> Training algorithm on labeled data (input-output pairs) 
+                to learn patterns and make predictions on new, unseen data. Used here to classify URLs as 
+                phishing or legitimate based on historical examples.
+            </div>
+            
+            <div class="definition-box">
+                <strong>Classification:</strong> A machine learning task where the model predicts discrete 
+                categories (in this case: Phishing or Legitimate) rather than continuous values.
+            </div>
+            
+            <div class="definition-box">
+                <strong>Feature Engineering:</strong> The process of creating meaningful features from raw 
+                data that help the model learn patterns. Here, we extract URL characteristics, domain 
+                information, and page structure features.
+            </div>
+            
+            <div class="definition-box">
+                <strong>Cross-Validation:</strong> A technique to evaluate model performance by dividing 
+                data into k-folds, training on k-1 folds, and testing on the remaining fold. Provides 
+                robust performance estimates.
+            </div>
+            
+            <h3>XGBoost (Extreme Gradient Boosting)</h3>
+            <div class="definition-box">
+                <strong>Definition:</strong> An optimized gradient boosting framework that builds an ensemble 
+                of decision trees. Each new tree is trained to correct residuals (errors) from previous trees, 
+                creating a powerful combined model.
+            </div>
+            <div class="definition-box">
+                <strong>Key Advantages:</strong>
+                <ul>
+                    <li>Fast training and prediction</li>
+                    <li>Handles non-linear relationships well</li>
+                    <li>Built-in regularization prevents overfitting</li>
+                    <li>Robust to outliers in data</li>
+                    <li>Excellent performance on tabular data</li>
+                </ul>
+            </div>
+            
+            <h3>ANN (Artificial Neural Network) / MLP (Multi-Layer Perceptron)</h3>
+            <div class="definition-box">
+                <strong>Definition:</strong> A feedforward neural network with multiple layers of interconnected 
+                neurons. Each neuron performs weighted sum of inputs + bias, followed by activation function. 
+                The network learns by adjusting weights through backpropagation.
+            </div>
+            <div class="definition-box">
+                <strong>How It Works:</strong>
+                <ul>
+                    <li><strong>Input Layer:</strong> Receives 30 features</li>
+                    <li><strong>Hidden Layers:</strong> Learn hierarchical representations (128 → 64 → 32 neurons)</li>
+                    <li><strong>Output Layer:</strong> Binary classification (Phishing vs Legitimate)</li>
+                    <li><strong>Activation:</strong> ReLU introduces non-linearity in hidden layers</li>
+                    <li><strong>Backpropagation:</strong> Adjusts weights to minimize prediction error</li>
+                </ul>
+            </div>
+            
+            <h3>Evaluation Metrics</h3>
+            <div class="definition-box">
+                <strong>Accuracy:</strong> (TP + TN) / Total. Percentage of correct predictions. 
+                Good overall metric but can be misleading with imbalanced data.
+            </div>
+            <div class="definition-box">
+                <strong>Precision:</strong> TP / (TP + FP). Of all URLs flagged as phishing, 
+                how many were actually phishing? Critical to avoid false positives.
+            </div>
+            <div class="definition-box">
+                <strong>Recall:</strong> TP / (TP + FN). Of all actual phishing URLs, 
+                how many were detected? Critical to avoid missing real threats (false negatives).
+            </div>
+            <div class="definition-box">
+                <strong>F1-Score:</strong> 2 × (Precision × Recall) / (Precision + Recall). 
+                Harmonic mean of precision and recall, best for imbalanced datasets.
+            </div>
+            
+            <!-- Project Structure -->
+            <h2>📁 Project Structure</h2>
+            <div class="code-block">
+phising-website-detection/
+├── src/                          # Core ML pipeline
+│   ├── data_loader.py            # Load and read datasets
+│   ├── preprocessor.py           # Data cleaning & scaling
+│   ├── train_xgb.py              # XGBoost model training
+│   ├── train_ann.py              # ANN/MLP model training
+│   ├── pipeline.py               # Orchestrates entire workflow
+│   ├── website_feature_extraction.py  # 30 feature extraction
+│   ├── config_loader.py          # Load YAML config
+│   └── utils.py                  # Helper utilities
+├── api/                          # FastAPI REST endpoint
+│   ├── main.py                   # FastAPI app & routes
+│   └── templates/
+│       └── index.html            # Web UI for predictions
+├── inference/
+│   └── predictor.py              # Real-time prediction logic
+├── notebook/
+│   └── EDA.ipynb                 # Exploratory data analysis
+├── data/
+│   └── phising.csv               # Training dataset
+├── artifacts/                    # Trained models & scalers
+├── config.yaml                   # Model hyperparameters
+├── requirements.txt              # Python dependencies
+├── run_pipeline.py               # Pipeline execution script
+└── main.py                       # Entry point
+            </div>
+            
+            <!-- Usage -->
+            <h2>🚀 Usage</h2>
+            <h3>1. Install Dependencies</h3>
+            <div class="code-block">
+pip install -r requirements.txt
+            </div>
+            
+            <h3>2. Configure Settings</h3>
+            <p>
+                Edit <code>config.yaml</code> to adjust model hyperparameters, data paths, 
+                and artifact locations as needed.
+            </p>
+            
+            <h3>3. Train Models</h3>
+            <div class="code-block">
+python run_pipeline.py
+            </div>
+            <p>
+                This trains both XGBoost and ANN models, evaluates them, saves artifacts, 
+                and logs results to MLflow.
+            </p>
+            
+            <h3>4. Run Web API</h3>
+            <div class="code-block">
+cd api
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+            </div>
+            <p>
+                Access the interactive web interface at <code>http://localhost:8000</code>
+            </p>
+            
+            <h3>5. Make Predictions</h3>
+            <p>
+                Use the web interface to enter URL features and get real-time predictions. 
+                Choose between XGBoost and ANN models for comparison.
+            </p>
+            
+            <!-- Key Achievements -->
+            <h2>🏆 Key Achievements</h2>
+            <ul>
+                <li><strong>Dual ML Architecture:</strong> Combines gradient boosting and deep learning for robust predictions</li>
+                <li><strong>30 Feature Engineering:</strong> Comprehensive feature extraction covering URL, domain, security, and content aspects</li>
+                <li><strong>Production-Ready API:</strong> REST API with interactive web interface using FastAPI</li>
+                <li><strong>Experiment Tracking:</strong> MLflow integration for reproducible and trackable experiments</li>
+                <li><strong>Configuration Management:</strong> YAML-based configuration for easy hyperparameter tuning</li>
+                <li><strong>Data Preprocessing:</strong> Proper train-test split with StandardScaler for feature normalization</li>
+                <li><strong>Scalable Architecture:</strong> Modular design allows easy extension and integration</li>
+            </ul>
+            
+            <!-- Deployment -->
+            <h2>🌐 Deployment</h2>
+            <p>
+                The system includes:
+            </p>
+            <ul>
+                <li><strong>API Layer:</strong> FastAPI for high-performance REST endpoints</li>
+                <li><strong>Web Interface:</strong> Interactive HTML/CSS UI for user predictions</li>
+                <li><strong>Model Serialization:</strong> Joblib for efficient model persistence</li>
+                <li><strong>Real-time Predictions:</strong> Sub-second inference latency</li>
+            </ul>
+            
+            <!-- Future Enhancements -->
+            <h2>🔮 Future Enhancements</h2>
+            <ul>
+                <li>Ensemble voting combining predictions from both models</li>
+                <li>Real-time URL feature extraction from live websites</li>
+                <li>Advanced hyperparameter tuning (Bayesian optimization)</li>
+                <li>Database integration for tracking predictions</li>
+                <li>Containerization with Docker for easy deployment</li>
+                <li>Model explainability with SHAP values</li>
+                <li>Continuous learning pipeline with new data</li>
+            </ul>
+            
+            <!-- Technologies Summary -->
+            <h2>💻 Technologies Stack</h2>
+            <ul>
+                <li><strong>ML Frameworks:</strong> Scikit-learn, XGBoost, NumPy, Pandas</li>
+                <li><strong>Deep Learning:</strong> Scikit-learn MLPClassifier, SciPy</li>
+                <li><strong>Web Framework:</strong> FastAPI, Uvicorn, Jinja2</li>
+                <li><strong>Data Processing:</strong> Pandas, NumPy, SciPy</li>
+                <li><strong>Feature Extraction:</strong> BeautifulSoup4, DNSPython, python-whois</li>
+                <li><strong>Model Persistence:</strong> Joblib</li>
+                <li><strong>Experiment Tracking:</strong> MLflow</li>
+                <li><strong>Visualization:</strong> Matplotlib, Seaborn</li>
+                <li><strong>Configuration:</strong> PyYAML</li>
+                <li><strong>Language:</strong> Python 3.x</li>
+            </ul>
+            
+            <!-- Conclusion -->
+            <h2>📌 Conclusion</h2>
+            <p>
+                PhishGuard AI demonstrates a complete machine learning solution for cybersecurity applications, 
+                combining advanced feature engineering, multiple model architectures, and production-ready deployment. 
+                This project showcases proficiency in:
+            </p>
+            <ul>
+                <li>End-to-end ML pipeline development</li>
+                <li>Multiple ML algorithms (Gradient Boosting & Deep Learning)</li>
+                <li>Feature engineering and data preprocessing</li>
+                <li>Model evaluation and hyperparameter tuning</li>
+                <li>REST API development and deployment</li>
+                <li>Experiment tracking and reproducibility</li>
+                <li>Professional code organization and best practices</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>Perfect for AI/ML Engineer roles:</strong> This project demonstrates practical ML 
+                engineering skills, from model development to production deployment, with a focus on 
+                security applications and real-world impact.
+            </div>
+        </div>
+        
+        <footer>
+            <p>PhishGuard AI - Intelligent Phishing Detection System | ML Portfolio Project</p>
+            <p>Built with Python, Machine Learning, and FastAPI</p>
+        </footer>
+    </div>
+</body>
+</html>
